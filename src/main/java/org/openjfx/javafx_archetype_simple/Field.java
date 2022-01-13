@@ -36,15 +36,15 @@ public class Field {
 	Field() throws IOException {
 		readSudokus();
 		createsudoku();
-		
+
 		field.setVisible(false);
-	
+
 	}
 	private void readSudokus() throws IOException {
-		  
+
 		InputStream input = getClass().getResourceAsStream("sudokus.txt");
 		var sr=new BufferedReader(new InputStreamReader(input));
-        String s="";
+		String s="";
 		while ((s=sr.readLine())!=null) {
 			sudokus.add(s);
 		}
@@ -52,7 +52,7 @@ public class Field {
 	}
 	public void createsudoku() {
 		String s=sudokus.get((int)(Math.random()*sudokus.size()));
-		
+
 		sudoku=new int[9][9];sudokuold=new int[9][9];
 		for (int i = 0; i < 81; i++) {
 			labels[i/9][i%9]=new TextField();
@@ -64,38 +64,38 @@ public class Field {
 				labels[i/9][i%9].setMouseTransparent(true);
 				labels[i/9][i%9].setFocusTraversable(false);
 			}
-		
+
 			labels[i/9][i%9].setFont(new Font("Arial",26));
 			labels[i/9][i%9].setStyle("-fx-text-box-border: rgb(204,204,204) ;-fx-font-weight: bold;");
-			
+
 			if(i%3==0)labels[i/9][i%9].setStyle("-fx-text-box-border: rgb(204,204,204) ;-fx-border-color:"
 					+ " transparent transparent transparent black;-fx-border-width: 2;-fx-font-weight: bold;");
 			if(i>26&&i<36||(i>53&&i<63)) {labels[i/9][i%9].setStyle("-fx-text-box-border: rgb(204,204,204) ;-fx-border-color:"
 					+ " black transparent transparent transparent;-fx-border-width: 2;-fx-font-weight: bold;");
-				if(i%3==0)labels[i/9][i%9].setStyle("-fx-text-box-border: rgb(204,204,204) ;-fx-border-color:"
+			if(i%3==0)labels[i/9][i%9].setStyle("-fx-text-box-border: rgb(204,204,204) ;-fx-border-color:"
 					+ " black transparent transparent black;-fx-border-width: 2;-fx-font-weight: bold;");
 			}
-			
+
 			labels[i/9][i%9].prefHeightProperty().bind(field.heightProperty());
 			labels[i/9][i%9].prefWidthProperty().bind(field.heightProperty());
 			labels[i/9][i%9].setAlignment(Pos.CENTER);
-			
+
 			field.add(labels[i/9][i%9], i%9, i/9);
-	}
+		}
 		solver.solve(sudoku);
-		
+
 	}
-	
-	
+
+
 	public int[][] givsudoku(){
 		return sudoku;
 	}
 	public int[][] givsudokuold(){
 		return sudokuold;
 	}
-	
+
 	public GridPane givfield() {
 		return field;
 
-		}
+	}
 }
